@@ -7,13 +7,15 @@ In order to have a test database for API testing purpose, here is some easy step
 
 ##Steps
 1. Generate a random csv file using the 'random_csv_generator' script, passing in argument the number of row generated
-```
-./random_csv_generator.sh 100000000  
-```
+
+  ```
+  ./random_csv_generator.sh 100000000  
+  ```
 2. Move the csv file to hdfs with the appropriate user (in my case root)
-```
-sudo hdfs dfs -put random_values.csv /user/root
-```
+
+  ```
+  sudo hdfs dfs -put random_values.csv /user/root
+  ```
 3. Create the table in hive and load the csv file with the appropriate use
   * Connect to hive using beeline (**specify auth=noSasl if so, else specify nothing**)
   
