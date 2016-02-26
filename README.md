@@ -67,7 +67,7 @@ In order to have a test database for API testing purpose, here is some easy step
 3. Create your database and insert your data
 4. Grant all priviledge to the Sqoop user (the one running Sqoop for ETL, in my case root)
  ```
- GRANT ALL PRIVILEGES ON *.* TO 'USER'@'%' IDENTIFIED BY 'PASSWORD' WITH GRANT OPTION;
+ GRANT ALL PRIVILEGES ON *.* TO 'USER_MARIADB'@'%' IDENTIFIED BY 'PASSWORD_MARIADB' WITH GRANT OPTION;
  ```
  
 5. Copy mysql driver to lib folder of Sqoop 
@@ -89,13 +89,13 @@ In order to have a test database for API testing purpose, here is some easy step
     ```
     
 7. Create Hue user to be able to launch Sqoop and write to HDFS
-  * Go to Hue WEB UI, Administration / Manage users (http://HUE_SERVER_HOSTNAME:8888/useradmin/users) and add a user as super-user and default group (the same you've granted privileges on MariaDB)
+  * Go to Hue WEB UI, Administration / Manage users (http://HUE_SERVER_HOSTNAME:8888/useradmin/users) and add a user as super-user and default group (the same you'll be executing Sqoop, in my case **root**)
 8. Launch Sqoop import job
   ```
-  sudo sqoop import --driver org.mariadb.jdbc.Driver --connect jdbc:mysql://MARIADB_SERVER_HOSTNAME:3306/userdb --username USER --password PASSWORD --table MARIADB_TABLE_NAME --hive-import --hive-table hivedbtest.HIVE_TABLE_NAME -m 1
+  sudo sqoop import --driver org.mariadb.jdbc.Driver --connect jdbc:mysql://MARIADB_SERVER_HOSTNAME:3306/userdb --username USER_MARIADB --password PASSWORD_MARIADB --table MARIADB_TABLE_NAME --hive-import --hive-table hivedbtest.HIVE_TABLE_NAME -m 1
   ```
   
   If you want to import the data as a text file and then create the database you can also use the command
   ```
-  sudo sqoop import --driver org.mariadb.jdbc.Driver --connect jdbc:mysql://MARIADB_SERVER_HOSTNAME:3306/userdb --username USER --password PASSWORD --table MARIADB_TABLE_NAME --target-dir /mariadb_data --append
+  sudo sqoop import --driver org.mariadb.jdbc.Driver --connect jdbc:mysql://MARIADB_SERVER_HOSTNAME:3306/userdb --username USER_MARIADB --password PASSWORD_MARIADB --table MARIADB_TABLE_NAME --target-dir /mariadb_data --append
   ```
