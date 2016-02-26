@@ -14,24 +14,29 @@ In order to have a test database for API testing purpose, here is some easy step
 ```
 sudo hdfs dfs -put random_values.csv /user/root
 ```
-3. Create the table in hive and load the csv file with the appropriate user
-	..* Connect to hive using beeline (**specify auth=noSasl if so, else specify nothing**)
+3. Create the table in hive and load the csv file with the appropriate use
+  * Connect to hive using beeline (**specify auth=noSasl if so, else specify nothing**)
+  
 	```
 	!connect jdbc:hive2://vm-cluster2-node1:10000/;auth=noSasl root root org.apache.hive.jdbc.HiveDriver
 	```
-	..* Create database if not exists 
+  * Create database if not exists 
+  
 	```
 	CREATE DATABASE IF NOT EXISTS test;
 	```
-	..* Specify the database to use
+  * Specify the database to use
+
 	```
 	USE test;
 	```
-	..* Create the table (**\073** is the OCT code for **;**)
+  * Create the table (**\073** is the OCT code for **;**)
+
 	```
 	CREATE TABLE random (col1 string,col2 string,col3 int) row format delimited fields terminated by '\073' stored as textfile;
 	```
-	..* Load csv file data into the created table
+  * Load csv file data into the created table
+
 	```
 	LOAD DATA INPATH '/user/root/random_values.csv' OVERWRITE INTO TABLE random;
 	```
